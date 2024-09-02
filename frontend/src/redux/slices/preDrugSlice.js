@@ -22,6 +22,7 @@ const preDrugSlice = createSlice({
 
         isPreDeleteSuccessMsg: null,
         isPreDeleteErrorMsg: null,
+        
         preDrugsCount: 0,
 
     },
@@ -38,7 +39,7 @@ const preDrugSlice = createSlice({
             return {
                 ...state,
                 isLoading: false,
-                error: null,
+                isPreAddErrorMsg: null,
                 isPreAddSuccessMsg: action.payload
             };
         },

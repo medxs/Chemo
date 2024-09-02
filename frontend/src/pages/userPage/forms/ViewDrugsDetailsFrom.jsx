@@ -5,11 +5,13 @@ import { getSinglePatientRecord } from '../../../redux/actions/patientAction';
 import DataTable from 'react-data-table-component';
 import { getViewPatientTreatmentDrugDetailsRecords } from '../../../redux/actions/treatmentPageAction/viewPatientDrugDetails';
 import { Link, useNavigate } from 'react-router-dom';
+import getEnvironmentUrl from '../../../helpers/envHelper';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 
 const ViewDrugsDetailsFrom = () => {
-
+    const BASE_URL = getEnvironmentUrl();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { patient } = useSelector((state) => state.patientInfo);
@@ -97,10 +99,6 @@ const ViewDrugsDetailsFrom = () => {
             name: "End Time",
             selector: (row) => row.endTime,
         },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
-        }
     ];
 
     const ChemotherapyTableColumns = [
@@ -142,10 +140,6 @@ const ViewDrugsDetailsFrom = () => {
             name: "End Time",
             selector: (row) => row.endTime,
         },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
-        }
     ];
 
     const TakeHomeTableColumns = [
@@ -184,10 +178,6 @@ const ViewDrugsDetailsFrom = () => {
             name: "Dispensed",
             selector: (row) => row.dispensed,
         },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
-        }
     ];
 
     const file = generalInfo?.uploadBloodReport || 'Null';

@@ -4,17 +4,15 @@ const { CancerSchemaModel, RegimenSchemaModel, PremedicationSchemaModel, ChemoTh
 exports.createMasterRecord = async (req, res, next) => {
     const { preRefIds, chemoRefIds, takeHomeRefIds, cancerInputData, regimenInputData } = req.body
 
+    console.log("createMasterRecord :", req.body);
 
 
     try {
-
         const cancerExist = await CancerSchemaModel.findOne({ name: cancerInputData });
-        const cancerId = cancerExist._id;
-
         // already have cancer now we are add New regimen over here......... Start
         if (cancerExist) {
             // console.log("Inside come start");
-            const regimenExist = await RegimenSchemaModel.findOne({ cancerId: cancerId, name: regimenInputData });
+            const regimenExist = await RegimenSchemaModel.findOne({ cancerId: cancerExist._id, name: regimenInputData });
             if (regimenExist) {
                 //start
                 return res.status(200).json({ message: `Regimen is already exist in this Cancer !!` })
@@ -188,18 +186,17 @@ exports.getTakeHomeList = async (req, res, next) => {
 
 
 // ------  added extra drug into master page  -----------
-
 exports.addNewPremedicationRecordIntoMasterRecord = async (req, res, next) => {
     try {
-        const { cancerId, regimenId, preRefId } = req.query; // Assuming data is sent in the request body
+        const { cancerDataId: cancerId, regimenDataId: regimenId, preRefId } = req.body; // Adjust the key names
 
         // Validate input
         if (!cancerId || !regimenId || !preRefId) {
             return res.status(400).json({ message: "Invalid input" });
         }
 
-        // Convert comma-separated string to array
-        const preRefIdArray = preRefId.split(',').map(id => id.trim());
+        // Convert comma-separated string to array (if preRefId is not an array)
+        const preRefIdArray = Array.isArray(preRefId) ? preRefId : preRefId.split(',').map(id => id.trim());
 
         // Iterate over the preRefId array and create records
         const recordsToSave = preRefIdArray.map(id => ({
@@ -229,9 +226,9 @@ exports.addNewPremedicationRecordIntoMasterRecord = async (req, res, next) => {
 
 exports.addNewChemotherapyRecordIntoMasterRecord = async (req, res, next) => {
     try {
-        const { cancerId, regimenId, chemoRefId } = req.query; // Extract data from query parameters
+        const { cancerDataId: cancerId, regimenDataId: regimenId, chemoRefId } = req.body; // Extract data from query parameters
 
-        console.log("Request Here:", req.query);
+        console.log("addNewChemotherapyRecordIntoMasterRecord :", req.body);
 
         // Validate input
         if (!cancerId || !regimenId || !chemoRefId) {
@@ -272,9 +269,9 @@ exports.addNewChemotherapyRecordIntoMasterRecord = async (req, res, next) => {
 
 exports.addNewTakeHomeRecordIntoMasterRecord = async (req, res, next) => {
     try {
-        const { cancerId, regimenId, takeHomeRefId } = req.query; // Extract data from query parameters
+        const { cancerId, regimenId, takeHomeRefId } = req.body; // Extract data from body
 
-        console.log("Request Here:", req.query);
+        console.log("Request Here:", req.body);
 
         // Validate input
         if (!cancerId || !regimenId || !takeHomeRefId) {
@@ -310,7 +307,7 @@ exports.addNewTakeHomeRecordIntoMasterRecord = async (req, res, next) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-}
+};
 
 
 

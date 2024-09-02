@@ -129,10 +129,6 @@ const premedicationDrugSchema = new mongoose.Schema({
         type: String,
         default: '10-07-2024'
     },
-    signature: {
-        type: String,
-        default: 'Dr.Name'
-    },
     createdAt: {
         type: Date,
         default: Date.now(),
@@ -208,10 +204,6 @@ const chemoDrugSchema = new mongoose.Schema({
         type: String,
         default: '10-07-2024'
     },
-    signature: {
-        type: String,
-        default: 'Dr.Name'
-    },
     createdAt: {
         type: Date,
         default: Date.now(),
@@ -263,10 +255,6 @@ const takeHomeDrugSchema = new mongoose.Schema({
     dispensed: {
         type: String,
         default: 'Null'
-    },
-    signature: {
-        type: String,
-        default: 'Dr.Name'
     },
     createdAt: {
         type: Date,

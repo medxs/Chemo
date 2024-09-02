@@ -21,11 +21,12 @@ const checkToken = async (req, res, next) => {
 };
 
 const isAuthenticatedUser = async (req, res, next) => {
+
     const { authorization } = req.headers;
 
     if (!authorization) {
         return res.status(401).json({ message: "Authorization token not found!" });
-        
+
     }
 
     console.log("authorization: ", authorization);

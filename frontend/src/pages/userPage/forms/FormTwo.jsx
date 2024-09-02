@@ -575,22 +575,6 @@ const FormTwo = () => {
     isLoading: takehomeLoading,
   } = useSelector((state) => state?.takeHomeDrugData);
 
-  // console.log("Create Message:", message);
-  // console.log("Create Error Message:", error);
-  // console.log("single Date Treatment Record:", singleDateTreatmentRecord);
-
-  // assing to variable
-  // const premedicationDataStore = preDrugs.map((item) => ({
-  //   ...item,
-  //   signature: item.signature === "Dr.Name" ? "Medas" : item.signature,
-  // }));;
-
-  // const premedicationDataStore = preDrugs;
-  // const chemotherapyDataStore = chemoDrugs;
-  // const takeHomesDataStore = takeHomeDrugs;
-
-  // console.log("premedicationDataStore:", premedicationDataStore);
-
   const [preData, setPreData] = useState([]);
   const [chemoData, setChemoData] = useState([]);
   const [takeHomeMediData, setTakeHomeMediData] = useState([]);
@@ -605,25 +589,10 @@ const FormTwo = () => {
 
 
   useEffect(() => {
-    const premedicationDataStore = preDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    const chemotherapyDataStore = chemoDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    const takeHomesDataStore = takeHomeDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    setPreData(premedicationDataStore);
-    setChemoData(chemotherapyDataStore);
-    setTakeHomeMediData(takeHomesDataStore);
-  }, [user, preDrugs, chemoDrugs, takeHomeDrugs]);
+    setPreData(preDrugs);
+    setChemoData(chemoDrugs);
+    setTakeHomeMediData(takeHomeDrugs);
+  }, [preDrugs, chemoDrugs, takeHomeDrugs]);
 
   // modal data
   // useEffect(() => {
@@ -665,42 +634,11 @@ const FormTwo = () => {
 
   // set into local variable for treatments
   useEffect(() => {
-
-    // add remove default value and insteat of "Dr.Name"
-    const preModifiedData = preLibData.map((item) => {
-      return {
-        ...item,
-        signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-      }
-    })
-
-    const chemoModifiedData = chemoLibData.map((item) => {
-      return {
-        ...item,
-        signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-      }
-    })
-
-    const takeHomeModifiedData = takeHomeLibData.map((item) => {
-      return {
-        ...item,
-        signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-      }
-    })
-
-    setPreTreatmentData(preModifiedData);
-    setChemoTreatmentData(chemoModifiedData);
-    setTakeHomeTreatmentData(takeHomeModifiedData);
+    setPreTreatmentData(preLibData);
+    setChemoTreatmentData(chemoLibData);
+    setTakeHomeTreatmentData(takeHomeLibData);
     setPatientTreatmentRecord(patientTreatmentRecord);
-
-    setTakeHomeTableData(takeHomeModifiedData);
   }, [preLibData, chemoLibData, takeHomeLibData, getSingleCycleTestList]);
-
-
-  console.log("preLibData:", preTreatmentData);
-  console.log("chemoLibData:", chemoTreatmentData);
-  console.log("takeHomeLibData:", takeHomeTreatmentData);
-
 
   useEffect(() => {
     dispatch(getCancerList());
@@ -1072,10 +1010,6 @@ const FormTwo = () => {
       selector: (row) => row.endTime,
     },
     {
-      name: "Signature",
-      selector: (row) => row.signature,
-    },
-    {
       name: "Operation",
       cell: (item) => (
         <div className="">
@@ -1143,10 +1077,6 @@ const FormTwo = () => {
       selector: (row) => row.endTime,
     },
     {
-      name: "Signature",
-      selector: (row) => row.signature,
-    },
-    {
       name: "Operation",
       cell: (item) => (
         <div className="">
@@ -1210,10 +1140,6 @@ const FormTwo = () => {
     {
       name: "Dispensed",
       selector: (row) => row.dispensed,
-    },
-    {
-      name: "Signature",
-      selector: (row) => row.signature,
     },
     {
       name: "Operation",

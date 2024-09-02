@@ -2,10 +2,11 @@ import axios from "axios";
 import { patientCreateRequest, patientCreateSuccess, patientCreateFail, patientSuccess, patientRequest } from '../slices/patientSlice';
 import { getPatients } from "./patientsAction";
 import { getAuthToken } from "../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../helpers/envHelper";
 // import { useNavigate } from "react-router-dom";
 
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = getEnvironmentUrl();
 
 
 export const createPatientProfile = (data) => async (dispatch) => {

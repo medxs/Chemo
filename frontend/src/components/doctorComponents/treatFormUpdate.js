@@ -18,8 +18,7 @@ export const PremedicationTreatmentUpdateForm = ({ item, handleGetUpdatedPremedi
         frequency: '',
         details: '',
         startTime: '',
-        endTime: '',
-        signature: ''
+        endTime: ''
     });
 
     function preSetData() {
@@ -34,8 +33,7 @@ export const PremedicationTreatmentUpdateForm = ({ item, handleGetUpdatedPremedi
             frequency: item.frequency,
             details: item.details,
             startTime: item.startTime ? moment(item.startTime).format('YYYY-MM-DD') : '',
-            endTime: item.endTime ? moment(item.endTime).format('YYYY-MM-DD') : '',
-            signature: item.signature
+            endTime: item.endTime ? moment(item.endTime).format('YYYY-MM-DD') : ''
         })
     }
     useEffect(() => {
@@ -43,70 +41,6 @@ export const PremedicationTreatmentUpdateForm = ({ item, handleGetUpdatedPremedi
             preSetData();
         }
     }, [item]);
-
-    // useEffect(() => {
-    //     if (isPreUpdateSuccessMsg) {
-    //         if (isPreUpdateErrorMsg) {
-    //             toast.error(isPreUpdateErrorMsg, {
-    //                 // delay: 1000,
-    //                 // hideProgressBar: true
-    //             });
-    //             setTimeout(() => {
-    //                 dispatch(premedicationClearMessages())
-    //             }, 100)
-    //             return;
-    //         }
-
-    //         if (isPreUpdateSuccessMsg.match("Drug")) {
-    //             toast.warn(isPreUpdateSuccessMsg)
-    //             setTimeout(() => {
-    //                 dispatch(premedicationClearMessages())
-    //             }, 100)
-    //             return;
-    //         }
-
-    //         toast.success(isPreUpdateSuccessMsg, {
-    //             // delay: 1000,
-    //             // hideProgressBar: true
-    //         });
-    //         setData({
-    //             drugType: '',
-    //             drugName: '',
-    //             brandName: '',
-    //             doseValue: '',
-    //             unit: '',
-    //             duration: '',
-    //             frequency: '',
-    //             details: '',
-    //         })
-
-    //         setTimeout(() => {
-    //             dispatch(premedicationClearMessages())
-    //         }, 100)
-    //     }
-    // }, [isPreUpdateSuccessMsg, isPreUpdateErrorMsg])
-
-
-    // const handleClearError = () => {
-    //     setErrors({});
-    // }
-
-    // const handleSubmitTest = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         await premedicationFromValidateSchema.validate(data, { abortEarly: false });
-    //         dispatch(updatePremedicaitonDrug(item._id, data))
-    //         setErrors({});
-    //     } catch (validationErrors) {
-    //         const formattedErrors = {};
-    //         if (validationErrors && Array.isArray(validationErrors.inner)) {
-    //             validationErrors.inner.forEach(error => {
-    //                 formattedErrors[error.path] = error.message;
-    //             });
-    //             setErrors(formattedErrors);
-    //         }
-    //     }
-    // }
 
     const handleClearError = () => {
         setErrors({});
@@ -302,17 +236,6 @@ export const PremedicationTreatmentUpdateForm = ({ item, handleGetUpdatedPremedi
                                                     />
                                                     {errorsData?.endTime && <span className='text-danger'> {errorsData.endTime}</span>}
                                                 </div>
-                                                <div className="form-group col-12 col-md-6 col-lg-3">
-                                                    <label>Signature</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="signature"
-                                                        value={data.signature}
-                                                        onChange={(e) => handleChange(e)}
-                                                    />
-                                                    {errorsData?.signature && <span className='text-danger'> {errorsData.signature}</span>}
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -369,8 +292,7 @@ export const ChemotherapyTreatmentUpdateForm = ({ item, handleGetUpdatedChemothe
         details: '',
         expiredDate: '',
         startTime: '',
-        endTime: '',
-        signature: ''
+        endTime: ''
     })
 
 
@@ -391,8 +313,7 @@ export const ChemotherapyTreatmentUpdateForm = ({ item, handleGetUpdatedChemothe
             details: item.details,
             expiredDate: item.expiredDate ? moment(item.expiredDate).format('YYYY-MM-DD') : '',
             startTime: item.startTime ? moment(item.startTime).format('YYYY-MM-DD') : '',
-            endTime: item.endTime ? moment(item.endTime).format('YYYY-MM-DD') : '',
-            signature: item.signature
+            endTime: item.endTime ? moment(item.endTime).format('YYYY-MM-DD') : ''
         })
     }
 
@@ -685,17 +606,6 @@ export const ChemotherapyTreatmentUpdateForm = ({ item, handleGetUpdatedChemothe
                                             />
                                             {errorsData?.endTime && <span className='text-danger'> {errorsData.endTime}</span>}
                                         </div>
-                                        <div className="form-group col-12 col-md-6 col-lg-3">
-                                            <label>Signature</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name="signature"
-                                                value={data.signature}
-                                                onChange={(e) => handleChange(e)}
-                                            />
-                                            {errorsData?.signature && <span className='text-danger'> {errorsData.signature}</span>}
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -737,7 +647,6 @@ export const TakeHomeTreatmentUpdateForm = ({ item, handleGetUpdatedTakeHomeData
         frequency: '',
         details: '',
         dispensed: '',
-        signature: '',
     })
 
     function takeHomeSetData() {
@@ -751,8 +660,7 @@ export const TakeHomeTreatmentUpdateForm = ({ item, handleGetUpdatedTakeHomeData
             duration: item.duration,
             frequency: item.frequency,
             details: item.details,
-            dispensed: item.dispensed,
-            signature: item.signature
+            dispensed: item.dispensed
         })
     }
 
@@ -761,70 +669,6 @@ export const TakeHomeTreatmentUpdateForm = ({ item, handleGetUpdatedTakeHomeData
             takeHomeSetData()
         }
     }, [item])
-
-    // useEffect(() => {
-    //     if (isPreUpdateSuccessMsg) {
-    //         if (isPreUpdateErrorMsg) {
-    //             toast.error(isPreUpdateErrorMsg, {
-    //                 // delay: 1000,
-    //                 // hideProgressBar: true
-    //             });
-    //             setTimeout(() => {
-    //                 dispatch(premedicationClearMessages())
-    //             }, 100)
-    //             return;
-    //         }
-
-    //         if (isPreUpdateSuccessMsg.match("Drug")) {
-    //             toast.warn(isPreUpdateSuccessMsg)
-    //             setTimeout(() => {
-    //                 dispatch(premedicationClearMessages())
-    //             }, 100)
-    //             return;
-    //         }
-
-    //         toast.success(isPreUpdateSuccessMsg, {
-    //             // delay: 1000,
-    //             // hideProgressBar: true
-    //         });
-    //         setData({
-    //             drugType: '',
-    //             drugName: '',
-    //             brandName: '',
-    //             doseValue: '',
-    //             unit: '',
-    //             duration: '',
-    //             frequency: '',
-    //             details: '',
-    //         })
-
-    //         setTimeout(() => {
-    //             dispatch(premedicationClearMessages())
-    //         }, 100)
-    //     }
-    // }, [isPreUpdateSuccessMsg, isPreUpdateErrorMsg])
-
-
-    // const handleClearError = () => {
-    //     setErrors({});
-    // }
-
-    // const handleSubmitTest = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         await premedicationFromValidateSchema.validate(data, { abortEarly: false });
-    //         dispatch(updatePremedicaitonDrug(item._id, data))
-    //         setErrors({});
-    //     } catch (validationErrors) {
-    //         const formattedErrors = {};
-    //         if (validationErrors && Array.isArray(validationErrors.inner)) {
-    //             validationErrors.inner.forEach(error => {
-    //                 formattedErrors[error.path] = error.message;
-    //             });
-    //             setErrors(formattedErrors);
-    //         }
-    //     }
-    // }
 
     const handleClearError = () => {
         setErrors({});
@@ -1005,17 +849,6 @@ export const TakeHomeTreatmentUpdateForm = ({ item, handleGetUpdatedTakeHomeData
                                                     name="dispensed"
                                                 />
                                                 {errorsData?.dispensed && <span className='text-danger'> {errorsData.dispensed}</span>}
-                                            </div>
-                                            <div className="form-group col-12 col-md-6 col-lg-3">
-                                                <label>Signature</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    name="signature"
-                                                    value={data.signature}
-                                                    onChange={(e) => handleChange(e)}
-                                                />
-                                                {errorsData?.signature && <span className='text-danger'> {errorsData.signature}</span>}
                                             </div>
                                         </div>
                                     </div>

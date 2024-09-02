@@ -62,7 +62,6 @@ const router = require('express').Router();
 
 // module.exports = router;
 
-
 const { createUser, login, getUser } = require('../controller/AuthController');
 const { isAuthenticatedUser } = require('../middlewares/authenticate');
 // const checkToken = require('../middlewares/authenticate');
@@ -70,33 +69,29 @@ const { isAuthenticatedUser } = require('../middlewares/authenticate');
 router.post('/register',  createUser);
 
 
-const authenticateToken = (req, res, next) => {
+// const authenticateToken = (req, res, next) => {
+//     console.log("REQ : ", req)
+//     console.log("RES : ", res)
+//     console.log("Next: ", next)
 
-    console.log("REQ : ", req)
-    console.log("RES : ", res)
-    console.log("Next: ", next)
+//     const authHeader = req.headers['authorization'];
+//     console.log("Auth H->: ", authHeader);
+//     const token = authHeader && authHeader.split(' ')[1];
+//     console.log("Token ->: ", token);
+//     if (!token) {
+//         return res.status(403).json("Unauthorization Token")
+//     }
 
-    const authHeader = req.headers['authorization'];
-    console.log("Auth H->: ", authHeader);
-    const token = authHeader && authHeader.split(' ')[1];
-    console.log("Token ->: ", token);
-    if (!token) {
-        return res.status(403).json("Unauthorization Token")
-    }
-
-    jwt.verify(token, process.env.ACCESS_TOKEN, (err, data) => {
-        if (err) {
-            res.status(403).json("Mis match token")
-        }
-        req.email = data;
-        next();
-    });
-}
+//     jwt.verify(token, process.env.ACCESS_TOKEN, (err, data) => {
+//         if (err) {
+//             res.status(403).json("Mis match token")
+//         }
+//         req.email = data;
+//         next();
+//     });
+// }
 
 router.post('/login', login);
-
-
-
 router.route('/get-user').get(isAuthenticatedUser, getUser);
 
 // router.get('/profile', checkToken, getProfile)

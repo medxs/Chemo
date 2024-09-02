@@ -2,8 +2,11 @@ import axios from "axios";
 import { getPatientMainTreatmentFormDataFail, getPatientMainTreatmentFormDataRequest, getPatientMainTreatmentFormDataSuccess, patientMainTreatmentFormCreateFail, patientMainTreatmentFormCreateRequest, patientMainTreatmentFormCreateSuccess } from "../../slices/treatmentSlice/mainTreatmentSlice"
 import { fileUploadFail, fileUploadRequest, fileUploadSuccess } from "../../slices/fileUploadSlice";
 import { getAuthToken } from "../../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../../helpers/envHelper";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+const BASE_URL = getEnvironmentUrl();
+
 
 
 export const submitPatientMainTreatmentFrom = (data) => async (dispatch) => {

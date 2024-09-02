@@ -37,7 +37,6 @@ const Register = () => {
   };
 
   useEffect(() => {
-
     console.log("successMsg:", successMsg);
     if (successMsg) {
       if (error) {
@@ -53,7 +52,7 @@ const Register = () => {
 
   return (
     <>
-      <section className="bg-primary-green vh-100 d-flex justify-content-center align-items-center">
+      <section className="bg-primary-green d-flex justify-content-center align-items-center">
         <div className="container py-5">
           <div className="row py-5">
             <div className="col-md-8 col-lg-6 mx-auto">
@@ -170,7 +169,10 @@ const Register = () => {
                     </div>
                     <div className="form-group d-flex justify-content-center d-block">
                       <p className="m-0">
-                        <Link className="btn btn-info" to={"/"}> Back to Home Page</Link>{" "}
+                        <Link className="btn btn-info" to={"/"}>
+                          {" "}
+                          Back to Home Page
+                        </Link>{" "}
                       </p>
                     </div>
                   </form>

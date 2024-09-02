@@ -4,8 +4,9 @@ import { patientsFail, patientsRequest, patientsSuccess } from "../slices/patien
 import { getCreatedProfileFail, getCreatedProfileRequest, getCreatedProfileSuccess } from "../slices/treatmentSlice/yetToStartSlice";
 import { getTodayCasesFail, getTodayCasesRequest, getTodayCasesSuccess } from "../slices/treatmentSlice/todayCasesSlice";
 import { getAuthToken } from "../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../helpers/envHelper";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = getEnvironmentUrl();
 
 export const getPatients = (page, size, search) => async (dispatch) => {
     try {

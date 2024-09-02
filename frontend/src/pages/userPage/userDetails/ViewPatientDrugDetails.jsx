@@ -94,10 +94,6 @@ const ViewPatientDrugDetails = () => {
         {
             name: "End Time",
             selector: (row) => row.endTime,
-        },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
         }
     ];
 
@@ -139,10 +135,6 @@ const ViewPatientDrugDetails = () => {
         {
             name: "End Time",
             selector: (row) => row.endTime,
-        },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
         }
     ];
 
@@ -181,10 +173,6 @@ const ViewPatientDrugDetails = () => {
         {
             name: "Dispensed",
             selector: (row) => row.dispensed,
-        },
-        {
-            name: "Signature",
-            selector: (row) => row.signature,
         }
     ];
 

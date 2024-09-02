@@ -4,8 +4,10 @@ import { addPreDrugRequest, addPreDrugSuccess, addPreDrugFail, readPreDrugReques
 import { addTakeHomeDrugFail, addTakeHomeDrugRequest, addTakeHomeDrugSuccess, deleteTakeHomeDrugFail, deleteTakeHomeDrugRequest, deleteTakeHomeDrugSuccess, readTakeHomeDrugFail, readTakeHomeDrugRequest, readTakeHomeDrugSuccess, updateTakeHomeDrugFail, updateTakeHomeDrugRequest, updateTakeHomeDrugSuccess } from "../slices/takeHomeDrugSlice";
 import { addChemoDrugFail, addChemoDrugRequest, addChemoDrugSuccess, deleteChemoDrugFail, deleteChemoDrugRequest, deleteChemoDrugSuccess, readChemoDrugFail, readChemoDrugRequest, readChemoDrugSuccess, updateChemoDrugFail, updateChemoDrugRequest, updateChemoDrugSuccess } from "../slices/chemoDrugSlice";
 import { getAuthToken } from "../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../helpers/envHelper";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+const BASE_URL = getEnvironmentUrl();
 
 // ************************ Premedication Operations start *******************************
 // create single premedication records 
@@ -162,14 +164,10 @@ export const updatePremedicaitonDrug = (id, preDrugPerPage, currentPrePage, data
     const searchPreData = '';
     try {
         dispatch(updatePreDrugRequest());
-        const config = {
-            headers: {
-                "content-type": "application/json",
-            },
-        };
-        const response = await axios.put(`${BASE_URL}/pre/addDrug/${id}`, data, config, {
+        const response = await axios.put(`${BASE_URL}/pre/addDrug/${id}`, data, {
             withCredentials: true,
             headers: {
+                "content-type": "application/json",
                 Authorization: `${getAuthToken()}`,
             }
         })
@@ -289,6 +287,7 @@ export const getTakeHomeDrug = () => async (dispatch) => {
         const res = await axios.get(`${BASE_URL}/getAllData/addDrug`, {
             withCredentials: true,
             headers: {
+                "content-type": "application/json",
                 Authorization: `${getAuthToken()}`,
             }
         });
@@ -320,17 +319,13 @@ export const deleteTakeHomeDrug = (id, currentTakeHomePage, takeHomeDrugPerPage,
 // Update TakeHome records 
 export const updateTakeHomeDrug = (id, takeHomeDrugPerPage, currentTakeHomePage, data) => async (dispatch) => {
     const searchTakeHomeData = ''
-  
+
     try {
         dispatch(updateTakeHomeDrugRequest());
-        const config = {
-            headers: {
-                "content-type": "application/json",
-            },
-        };
-        const response = await axios.put(`${BASE_URL}/takeHome/addDrug/${id}`, data, config, {
+        const response = await axios.put(`${BASE_URL}/takeHome/addDrug/${id}`, data, {
             withCredentials: true,
             headers: {
+                "content-type": "application/json",
                 Authorization: `${getAuthToken()}`,
             }
         })

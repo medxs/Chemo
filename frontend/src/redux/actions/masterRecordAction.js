@@ -1,23 +1,23 @@
 import axios from "axios";
-import { masterRecordCreateFail, masterRecordCreateRequest, masterRecordCreateSuccess } from "../slices/master-record-slices/masterRecordSlice";
+import { addChemoDrugIntoMasterRecordFail, addChemoDrugIntoMasterRecordRequest, addChemoDrugIntoMasterRecordSuccess, addPreDrugIntoMasterRecordFail, addPreDrugIntoMasterRecordRequest, addPreDrugIntoMasterRecordSuccess, addTakeHomeDrugIntoMasterRecordFail, addTakeHomeDrugIntoMasterRecordRequest, addTakeHomeDrugIntoMasterRecordSuccess, deleteChemoDrugIntoMasterRecordFail, deleteChemoDrugIntoMasterRecordRequest, deleteChemoDrugIntoMasterRecordSuccess, deletePreDrugIntoMasterRecordFail, deletePreDrugIntoMasterRecordRequest, deletePreDrugIntoMasterRecordSuccess, deleteTakeHomeDrugIntoMasterRecordFail, deleteTakeHomeDrugIntoMasterRecordRequest, deleteTakeHomeDrugIntoMasterRecordSuccess, masterRecordCreateFail, masterRecordCreateRequest, masterRecordCreateSuccess } from "../slices/master-record-slices/masterRecordSlice";
 import { getCancerListFail, getCancerListRequest, getCancerListSuccess } from "../slices/master-record-slices/getCancerListSlice";
 import { getRegimenListFail, getRegimenListRequest, getRegimenListSuccess } from "../slices/master-record-slices/getRegimenListSlice";
 import { clearPremedicationDataMasterList, getPremedicationMasterListFail, getPremedicationMasterListRequest, getPremedicationMasterListSuccess } from "../slices/master-record-slices/getPreMedicationMasterListSlice";
 import { clearChemotherapyDataMasterList, getChemotherapyMasterListFail, getChemotherapyMasterListRequest, getChemotherapyMasterListSuccess } from "../slices/master-record-slices/getChemotherapyMasterListSlice";
 import { clearTakeHomeDataMasterList, getTakeHomeMasterListFail, getTakeHomeMasterListRequest, getTakeHomeMasterListSuccess } from "../slices/master-record-slices/getTakeHomeMasterListSlice";
-import { addPreDrugFail, addPreDrugRequest, addPreDrugSuccess, deletePreDrugFail, deletePreDrugRequest, deletePreDrugSuccess } from "../slices/preDrugSlice";
-import { addChemoDrugFail, addChemoDrugRequest, addChemoDrugSuccess, deleteChemoDrugFail, deleteChemoDrugRequest, deleteChemoDrugSuccess } from "../slices/chemoDrugSlice";
-import { addTakeHomeDrugFail, addTakeHomeDrugRequest, addTakeHomeDrugSuccess, deleteTakeHomeDrugFail, deleteTakeHomeDrugRequest, deleteTakeHomeDrugSuccess } from "../slices/takeHomeDrugSlice";
 import { getAuthToken } from "../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../helpers/envHelper";
 
 
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = getEnvironmentUrl();
+
 
 
 export const createMasterRecord = (data) => async (dispatch) => {
     try {
         dispatch(masterRecordCreateRequest())
+        console.log("Tests masterRecordCreateRequest: ", data);
         const response = await axios.post(`${BASE_URL}/master-record/create`, data, {
             withCredentials: true,
             headers: {
@@ -112,54 +112,53 @@ export const getTakeHomeRecord = (data) => async (dispatch) => {
 
 
 // add new record into master record for particular cancer and regimen ///// cancerId, regimenId, preRefId 
-export const addSinglePremedicationRecordIntoMasterRecord = (cancerDataId, regimenDataId, preRefId) => async (dispatch) => {
+export const addSinglePremedicationRecordIntoMasterRecord = (data) => async (dispatch) => {
     try {
-        dispatch(addPreDrugRequest())
-        const response = await axios.post(`${BASE_URL}/master-record?cancerId=${cancerDataId}&regimenId=${regimenDataId}&preRefId=${preRefId}`, {
+        dispatch(addPreDrugIntoMasterRecordRequest())
+        const response = await axios.post(`${BASE_URL}/master-record`, data, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(addPreDrugSuccess(response?.data?.message));
+        dispatch(addPreDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
-        dispatch(addPreDrugFail(err?.message));
+        dispatch(addPreDrugIntoMasterRecordFail(err?.message));
     }
 }
 
 
 // add new record into master record for particular cancer and regimen ///// cancerId, regimenId, chemoRefId 
-export const addSingleChemotharapyRecordIntoMasterRecord = (cancerDataId, regimenDataId, chemoRefId) => async (dispatch) => {
+export const addSingleChemotharapyRecordIntoMasterRecord = (data) => async (dispatch) => {
     try {
-        dispatch(addChemoDrugRequest())
-        console.log("Action page:", cancerDataId, regimenDataId, chemoRefId);
-        const response = await axios.post(`${BASE_URL}/master-record/chemo?cancerId=${cancerDataId}&regimenId=${regimenDataId}&chemoRefId=${chemoRefId}`, {
+        dispatch(addChemoDrugIntoMasterRecordRequest())
+        const response = await axios.post(`${BASE_URL}/master-record/chemo`, data, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(addChemoDrugSuccess(response?.data?.message));
+        dispatch(addChemoDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
         console.log("err?.message:", err?.message);
-        dispatch(addChemoDrugFail(err?.message));
+        dispatch(addChemoDrugIntoMasterRecordFail(err?.message));
     }
 }
 
 
 // // add new record into master record for particular cancer and regimen ///// cancerId, regimenId, preRefId 
-export const addSingleTakeHomeRecordIntoMasterRecord = (cancerDataId, regimenDataId, takeHomeRefId) => async (dispatch) => {
+export const addSingleTakeHomeRecordIntoMasterRecord = (data) => async (dispatch) => {
     try {
-        dispatch(addTakeHomeDrugRequest())
-        const response = await axios.post(`${BASE_URL}/master-record/takeHome?cancerId=${cancerDataId}&regimenId=${regimenDataId}&takeHomeRefId=${takeHomeRefId}`, {
+        dispatch(addTakeHomeDrugIntoMasterRecordRequest())
+        const response = await axios.post(`${BASE_URL}/master-record/takeHome`, data, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(addTakeHomeDrugSuccess(response?.data?.message));
+        dispatch(addTakeHomeDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
-        dispatch(addTakeHomeDrugFail(err?.message));
+        dispatch(addTakeHomeDrugIntoMasterRecordFail(err?.message));
     }
 }
 
@@ -170,47 +169,47 @@ export const addSingleTakeHomeRecordIntoMasterRecord = (cancerDataId, regimenDat
 // add new record into master record for particular cancer and regimen ///// cancerId, regimenId, preRefId 
 export const deleteSinglePremedicationRecordFromMasterRecord = (cancerDataId, regimenDataId, preRefId) => async (dispatch) => {
     try {
-        dispatch(deletePreDrugRequest());
+        dispatch(deletePreDrugIntoMasterRecordRequest());
         const response = await axios.delete(`${BASE_URL}/master-record?cancerId=${cancerDataId}&regimenId=${regimenDataId}&preRefId=${preRefId}`, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(deletePreDrugSuccess(response?.data?.message));
+        dispatch(deletePreDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
-        dispatch(deletePreDrugFail(err?.message));
+        dispatch(deletePreDrugIntoMasterRecordFail(err?.message));
     }
 }
 
 // add new record into master record for particular cancer and regimen ///// cancerId, regimenId, chemoRefId 
 export const deleteSingleChemotherapyRecordFromMasterRecord = (cancerDataId, regimenDataId, chemoRefId) => async (dispatch) => {
     try {
-        dispatch(deleteChemoDrugRequest());
+        dispatch(deleteChemoDrugIntoMasterRecordRequest());
         const response = await axios.delete(`${BASE_URL}/master-record/chemo?cancerId=${cancerDataId}&regimenId=${regimenDataId}&chemoRefId=${chemoRefId}`, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(deleteChemoDrugSuccess(response?.data?.message));
+        dispatch(deleteChemoDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
-        dispatch(deleteChemoDrugFail(err?.message));
+        dispatch(deleteChemoDrugIntoMasterRecordFail(err?.message));
     }
 }
 
 export const deleteSingleTakeHomeRecordFromMasterRecord = (cancerDataId, regimenDataId, takeHomeRefId) => async (dispatch) => {
     try {
-        dispatch(deleteTakeHomeDrugRequest());
+        dispatch(deleteTakeHomeDrugIntoMasterRecordRequest());
         const response = await axios.delete(`${BASE_URL}/master-record/takeHome?cancerId=${cancerDataId}&regimenId=${regimenDataId}&takeHomeRefId=${takeHomeRefId}`, {
             withCredentials: true,
             headers: {
                 Authorization: `${getAuthToken()}`,
             }
         });
-        dispatch(deleteTakeHomeDrugSuccess(response?.data?.message));
+        dispatch(deleteTakeHomeDrugIntoMasterRecordSuccess(response?.data?.message));
     } catch (err) {
-        dispatch(deleteTakeHomeDrugFail(err?.message));
+        dispatch(deleteTakeHomeDrugIntoMasterRecordFail(err?.message));
     }
 }
 

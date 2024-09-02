@@ -54,8 +54,7 @@ const premedicationTreatmentFromValidateSchema = yup.object({
     frequency: yup.string().matches(/^[0-1]+$/, "Enter between 0 or 1 digits").trim().min(3, "Must be at least 3 characters long").max(3, "Must be at most 3 characters long").required("Frequency is required"),
     details: yup.string().trim().required("Administraion Details is required.."),
     startTime: yup.date().required('Select the Start Date'),
-    endTime: yup.date().required('Select the End Date'),
-    signature: yup.string().required('Signature is required')
+    endTime: yup.date().required('Select the End Date')
 });
 
 
@@ -74,8 +73,7 @@ const chemotherapyTreatmentFromValidateSchema = yup.object({
     details: yup.string().trim().required("Administraion Details is required"),
     expiredDate: yup.date().required('Select the Start Date'),
     startTime: yup.date().required('Select the Start Date'),
-    endTime: yup.date().required('Select the End Date'),
-    signature: yup.string().required('Signature is required')
+    endTime: yup.date().required('Select the End Date')
 });
 
 
@@ -89,8 +87,7 @@ const takeHomeTreatmentFromValidateSchema = yup.object({
     duration: yup.number("Must be in Number.").typeError('Please enter a duration. The field cannot be left blank.').positive("Must be a positive number.").required("Duration is required"),
     frequency: yup.string().matches(/^[0-1]+$/, "Enter between 0 or 1 digits").trim().min(3, "Must be at least 3 characters long").max(3, "Must be at most 3 characters long").required("Frequency is required"),
     details: yup.string().trim().required("Administraion Details is required.."),
-    dispensed: yup.string().trim().min(3, 'Must be at least 3 characters long').required("Dispensed is required"),
-    signature: yup.string().required('Signature is required')
+    dispensed: yup.string().trim().min(3, 'Must be at least 3 characters long').required("Dispensed is required")
 });
 
 

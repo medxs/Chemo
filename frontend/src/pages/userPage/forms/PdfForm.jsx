@@ -209,20 +209,6 @@ const PdfForm = () => {
                       </th>
                     </tr>
                   </thead>
-                  {/* <tbody>
-                                    {preDrugDateils && preDrugDateils.map((item) => (
-                                        <tr key={item._id}>
-                                            <td>{item.drugType}.{item.drugName}</td>
-                                            <td>{item.brandName}</td>
-                                            <td>{item.doseValue} {item.unit}</td>
-                                            <td>{item.duration}  {item.duration === 1 ? 'day' : 'days'}</td>
-                                            <td>{item.frequency[0]} - {item.frequency[1]} - {item.frequency[2]}</td>
-                                            <td>{item.startTime}</td>
-                                            <td>{item.endTime}</td>
-                                            <td>{item.signature}</td>
-                                        </tr>
-                                    ))}
-                                </tbody> */}
                 </table>
               </div>
             </div>
@@ -251,7 +237,6 @@ const PdfForm = () => {
                     <th scope="col">Frequency</th>
                     <th scope="col">Start Time</th>
                     <th scope="col">End Time</th>
-                    <th scope="col">Signature</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -274,7 +259,6 @@ const PdfForm = () => {
                         </td>
                         <td>{item.startTime}</td>
                         <td>{item.endTime}</td>
-                        <td>{item.signature}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -308,7 +292,6 @@ const PdfForm = () => {
                     <th scope="col">Expired Date</th>
                     <th scope="col">Start Time</th>
                     <th scope="col">End Time</th>
-                    <th scope="col">Signature</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -328,7 +311,6 @@ const PdfForm = () => {
                         <td>{item.expiredDate}</td>
                         <td>{item.startTime}</td>
                         <td>{item.endTime}</td>
-                        <td>{item.signature}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -359,7 +341,6 @@ const PdfForm = () => {
                     <th scope="col">Frequency</th>
                     <th scope="col">Administraion Details</th>
                     <th scope="col">Dispensed</th>
-                    <th scope="col">Signature</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -382,7 +363,6 @@ const PdfForm = () => {
                         </td>
                         <td>{item.details}</td>
                         <td>{item.dispensed}</td>
-                        <td>{item.signature}</td>
                       </tr>
                     ))}
                 </tbody>

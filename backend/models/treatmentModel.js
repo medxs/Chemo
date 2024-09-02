@@ -116,10 +116,6 @@ const premedicationDrugItemSchema = new mongoose.Schema({
     endTime: {
         type: String,
         required: true
-    },
-    signature: {
-        type: String,
-        required: true
     }
 });
 
@@ -187,10 +183,6 @@ const chemotherapyDrugItemSchema = new mongoose.Schema({
     endTime: {
         type: String,
         required: true
-    },
-    signature: {
-        type: String,
-        required: true
     }
 });
 
@@ -235,10 +227,6 @@ const takeHomeDrugItemSchema = new mongoose.Schema({
         type: String,
         default: 'Null'
     },
-    signature: {
-        type: String,
-        required: true
-    }
 });
 
 

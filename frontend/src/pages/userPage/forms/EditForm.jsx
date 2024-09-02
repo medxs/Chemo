@@ -57,9 +57,11 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import getEnvironmentUrl from "../../../helpers/envHelper";
 
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = getEnvironmentUrl();
+
 
 const EditForm = () => {
   const navigate = useNavigate();
@@ -305,24 +307,9 @@ const EditForm = () => {
 
 
   useEffect(() => {
-    const premedicationDataStore = preDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    const chemotherapyDataStore = chemoDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    const takeHomesDataStore = takeHomeDrugs.map((item) => ({
-      ...item,
-      signature: item.signature === "Dr.Name" ? doctorDetails?.name : item.signature,
-    }));
-
-    setPreData(premedicationDataStore);
-    setChemoData(chemotherapyDataStore);
-    setTakeHomeMediData(takeHomesDataStore);
+    setPreData(preDrugs);
+    setChemoData(chemoDrugs);
+    setTakeHomeMediData(takeHomeDrugs);
   }, [preDrugs, chemoDrugs, takeHomeDrugs]);
 
 
@@ -770,10 +757,6 @@ const EditForm = () => {
       selector: (row) => row.endTime,
     },
     {
-      name: "Signature",
-      selector: (row) => row?.signature,
-    },
-    {
       name: "Operation",
       cell: (item) => (
         <div className="">
@@ -812,7 +795,7 @@ const EditForm = () => {
       selector: (row) => `${row.brandName}`,
     },
     {
-      name: "Dose",
+      name: "Dose/Unit",
       selector: (row) => `${row.dose} ${row.doseUnit}`,
     },
     {
@@ -839,10 +822,6 @@ const EditForm = () => {
     {
       name: "End Time",
       selector: (row) => row.endTime,
-    },
-    {
-      name: "Signature",
-      selector: (row) => doctorDetails?.name,
     },
     {
       name: "Operation",
@@ -909,10 +888,6 @@ const EditForm = () => {
     {
       name: "Dispensed",
       selector: (row) => row.dispensed,
-    },
-    {
-      name: "Signature",
-      selector: (row) => doctorDetails?.name,
     },
     {
       name: "Operation",

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { getPatientBloodReportFail, getPatientBloodReportRequest, getPatientBloodReportSuccess } from "../../slices/viewDetails/bloodReportSlice";
+import getEnvironmentUrl from "../../../helpers/envHelper";
 
+
+const BASE_URL = getEnvironmentUrl();
 
 export const getBloodReportFileDetails = (patientRefId, cycleTestName) => async (dispatch) => {
     try {

@@ -515,9 +515,20 @@ exports.getSinglePremedicationRecord = async (req, res, next) => {
             details
         } = req.body;
 
-        const drugNameExist = await PremedicationDrugModel.findOne({ drugName: req.body.drugName, brandName: req.body.brandName });
+        const drugNameExist = await PremedicationDrugModel.findOne({
+            drugType,
+            drugName,
+            brandName,
+            doseValue,
+            unit,
+            duration,
+            frequency,
+            details
+        });
+
+
         if (drugNameExist) {
-            return res.status(200).json({ message: `This Drug Item Already Exist in premedication Table` })
+            return res.status(200).json({ message: `Already Exist...!!!` });
         }
 
         // console.log(findId);
@@ -561,7 +572,19 @@ exports.getSingleChemoRecord = async (req, res, next) => {
             details
         } = req.body;
 
-        const drugNameExist = await ChemotherapyDrugModel.findOne({ drugName: req.body.drugName, brandName: req.body.brandName });
+        const drugNameExist = await ChemotherapyDrugModel.findOne({
+            drugType,
+            drugName,
+            doseRangeA,
+            doseRangeB,
+            doseUnit,
+            dilution,
+            dosePct,
+            brandName,
+            route,
+            duration,
+            details
+        });
         if (drugNameExist) {
             return res.status(200).json({ message: `This Drug Item Already Exist in Chemotherapy Table.....` })
         }
@@ -605,7 +628,16 @@ exports.getSingleTakeHomeRecord = async (req, res, next) => {
             details
         } = req.body;
 
-        const drugNameExist = await TakeHomeDrugModel.findOne({ drugName: req.body.drugName, brandName: req.body.brandName });
+        const drugNameExist = await TakeHomeDrugModel.findOne({
+            drugType,
+            drugName,
+            brandName,
+            doseValue,
+            unit,
+            duration,
+            frequency,
+            details
+        });
         if (drugNameExist) {
             return res.status(200).json({ message: `Drug Name Already Exist in take home Table` })
         }
@@ -636,13 +668,8 @@ exports.deletePremedicationRecord = async (req, res, next) => {
 
     try {
         const id = req.params.id;
-
-        // console.log("Test Pre Id:", id);
-
         const deleteRecord = await PremedicationDrugModel.findByIdAndDelete(id);
-
         await PremedicationRegimenSchemaModel.deleteMany({ preRefId: id })
-
         res.status(200).json({ message: `Deleted successfully` });
     } catch (error) {
         console.log("Delete Error:", error);

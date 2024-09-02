@@ -106,7 +106,6 @@ const CreateMasterRecord = () => {
         route: item.route,
         startTime: item.startTime,
         endTime: item.endTime,
-        signature: item.signature,
       };
     })
   );

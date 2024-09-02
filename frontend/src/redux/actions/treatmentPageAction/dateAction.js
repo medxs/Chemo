@@ -1,8 +1,11 @@
 import axios from "axios";
 import { createCycleTestFail, createCycleTestRequest, createCycleTestSuccess, deleteSingleDateFail, deleteSingleDateRequest, deleteSingleDateSuccess, getCycleTestFail, getCycleTestRequest, getCycleTestSuccess } from "../../slices/date-Slice/dateSlice";
 import { getAuthToken } from "../../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../../helpers/envHelper";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+const BASE_URL = getEnvironmentUrl();
+
 // Create Patients treatments form records 
 export const createPatientCycleTestRecord = (data) => async (dispatch) => {
     try {

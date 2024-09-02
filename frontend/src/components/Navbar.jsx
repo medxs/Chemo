@@ -30,9 +30,9 @@ const Navbar = ({ handlCallBack, checked }) => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("ChemoToken");
     console.log("Token removed, user logged out.");
-    const token = localStorage.getItem("token") || "";
+    const token = localStorage.getItem("ChemoToken") || "";
     if (token == '') {
       toast.success('Logged out.');
       dispatch(getUser());
@@ -65,54 +65,12 @@ const Navbar = ({ handlCallBack, checked }) => {
         `}
       </style>
 
-      <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <nav className="navbar navbar-expand-lg  bg-body-tertiary shadow-sm sticky">
         <div className="container-fluid ">
           <HambugerMenu onClick={handlCallBack} checked={checked} />
           <p className="fw-bold m-0 h4 justify-content-center ">
             {" "} Doctor Panel {" "}
           </p>
-          {/* <p className="fw-bold m-0 h4  ">
-            <button className="btn btn-danger"  disabled>test submit report</button>
-          </p> */}
-
-          {/* <div className="">
-            <ul className="ms-auto mb-2 mb-lg-0 list-unstyled">
-              <li className="nav-items  dropdown dropstart">
-                <div
-                  type="button"
-                  className="btn dropdown-toggle rounded-circle"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                  alt="Logo"
-                >
-                  <img src={dm}
-                    style={{ width: "50px" }}
-                    className="rounded-circle shadow "
-
-
-
-                  />
-                </div>
-                <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">
-                    Separated link
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div> */}
-
-
           <div className="btn-group btn-profile mx-1 mx-md-1 my-1">
 
             <button type="button" className="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false" data-reference="parent" style={{ border: "none", backgroundColor: 'white' }}>

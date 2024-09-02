@@ -56,7 +56,6 @@ function App() {
             <Route path='/dashboard/view/pdf' exact element={<ProtectedRoute roles={['user']}>  < PdfForm />   </ProtectedRoute>} />
 
 
-
             <Route path='/dashboard/startTreatment' exact element={<ProtectedRoute roles={['user']}>    <StartTreatmentList /> </ProtectedRoute>} />
             <Route path='/dashboard/todayTreatment' exact element={<ProtectedRoute roles={['user']}>  <TodayTreatmentList />   </ProtectedRoute>} />
 

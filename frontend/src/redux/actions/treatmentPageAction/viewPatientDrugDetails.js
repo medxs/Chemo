@@ -1,9 +1,11 @@
 import axios from "axios";
 import { viewPatientTreatmentDrugDetailsFail, viewPatientTreatmentDrugDetailsRequest, viewPatientTreatmentDrugDetailsSuccess } from "../../slices/treatmentSlice/viewPatientDrugTreatmentDetailsSlice";
 import { getAuthToken } from "../../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../../helpers/envHelper";
 
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BASE_URL = getEnvironmentUrl();
+
 
 // get treatment Drugs Records for  single patient in  view treatment page Details
 export const getViewPatientTreatmentDrugDetailsRecords = (patient_id, cycleTestName, date) => async (dispatch) => {
@@ -15,10 +17,10 @@ export const getViewPatientTreatmentDrugDetailsRecords = (patient_id, cycleTestN
                 Authorization: `${getAuthToken()}`,
             }
         });
-        
+
         dispatch(viewPatientTreatmentDrugDetailsSuccess(res?.data));
     } catch (error) {
-       
+
         dispatch(viewPatientTreatmentDrugDetailsFail());
     }
 }

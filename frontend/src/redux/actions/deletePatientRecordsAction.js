@@ -2,8 +2,10 @@ import axios from "axios";
 import { deletePatientAllRecordFail, deletePatientAllRecordRequest, deletePatientAllRecordSuccess } from "../slices/deletePatientDetailsSlice";
 import { getPatients } from "./patientsAction";
 import { getAuthToken } from "../../helpers/getAuthToken";
+import getEnvironmentUrl from "../../helpers/envHelper";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+const BASE_URL = getEnvironmentUrl();
 
 export const deletePatientAllRecordDetails = (patient_id) => async (dispatch) => {
     try {

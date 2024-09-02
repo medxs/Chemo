@@ -49,6 +49,7 @@ import {
   PremedicationInsertForm,
   TakeHomeInsertForm,
 } from "../../../components/doctorComponents/AllForm";
+import { clearMasterMessage } from "../../../redux/slices/master-record-slices/masterRecordSlice";
 
 const ViewMasterRecord = () => {
   const [btns, setBtns] = useState(false);
@@ -70,6 +71,7 @@ const ViewMasterRecord = () => {
     chemoDrugsCount,
     isLoading: chemoLoading,
   } = useSelector((state) => state?.chemoDrugData);
+
 
   // //connect to store , fetct takehome data from Database
   const {
@@ -103,22 +105,27 @@ const ViewMasterRecord = () => {
   }, [premedicationDataStore, chemotherapyDataStore, takeHomesDataStore]);
 
   // ===================== Premedication Table Data ====================================
-
   const {
-    isPreAddSuccessMsg,
-    isPreAddErrorMsg,
-    isPreDeleteSuccessMsg,
-    isPreDeleteErrorMsg,
-  } = useSelector((state) => state?.preDrugData);
+    isPreAddMasterRecordErrorMsg,
+    isPreAddMasterRecordSuccessMsg,
+    isPreDeleteMasterRecordSuccessMsg,
+    isPreDeleteMasterRecordErrorMsg,
+
+    isChemoAddMasterRecordSuccessMsg,
+    isChemoAddMasterRecordErrorMsg,
+    isChemoDeleteMasterRecordSuccessMsg,
+    isChemoDeleteMasterRecordErrorMsg,
+
+    isTakeHomeAddMasterRecordSuccessMsg,
+    isTakeHomeAddMasterRecordErrorMsg,
+    isTakeHomeDeleteMasterRecordSuccessMsg,
+    isTakeHomeDeleteMasterRecordErrorMsg,
+
+
+
+  } = useSelector((state) => state?.masterRecordState);
 
   // ===================== Chemotherapy Table Data ====================================
-
-  const {
-    isChemoAddSuccessMsg,
-    isChemoAddErrorMsg,
-    isChemoDeleteSuccessMsg,
-    isChemoDeleteErrorMsg,
-  } = useSelector((state) => state?.chemoDrugData);
 
   // ===================== Take Home Table Data ====================================
 
@@ -166,6 +173,11 @@ const ViewMasterRecord = () => {
   }, []);
 
   const payload = {
+    cancerId: cancerDataId,
+    regimenId: regimenDataId,
+  };
+
+  const getPayload = {
     cancerId: cancerDataId,
     regimenId: regimenDataId,
   };
@@ -254,274 +266,109 @@ const ViewMasterRecord = () => {
 
   // ------------- toast message here start ----------------
   useEffect(() => {
-    // pre delete msg
-    if (isPreDeleteSuccessMsg) {
-      if (isPreDeleteErrorMsg) {
-        toast.error(isPreDeleteErrorMsg, {
-          // delay: 1000,
-          // hideProgressBar: true
-        });
-        setTimeout(() => {
-          // dispatch(getPremediRecord(payload));
-          dispatch(premedicationClearMessages());
-        }, 100);
-        return;
+    // Check if either success message exists and act accordingly
+    if (isPreDeleteMasterRecordSuccessMsg || isPreAddMasterRecordSuccessMsg) {
+      if (isPreDeleteMasterRecordErrorMsg) {
+        toast.error(isPreDeleteMasterRecordErrorMsg);
+      } else if (isPreDeleteMasterRecordSuccessMsg) {
+        toast.success(isPreDeleteMasterRecordSuccessMsg);
+      } else if (isPreAddMasterRecordErrorMsg) {
+        toast.error(isPreAddMasterRecordErrorMsg);
+      } else if (isPreAddMasterRecordSuccessMsg) {
+        toast.success(isPreAddMasterRecordSuccessMsg);
       }
-      toast.success(isPreDeleteSuccessMsg, {
-        // delay: 1000,
-        // hideProgressBar: true
+      setTimeout(() => {
+        dispatch(clearMasterMessage());
+        dispatch(getPremediRecord(payload));
       });
-      setTimeout(() => {
-        dispatch(getPremediRecord(payload));
-        dispatch(premedicationClearMessages());
-      }, 100);
     }
+  }, [isPreDeleteMasterRecordSuccessMsg, isPreAddMasterRecordSuccessMsg, isPreAddMasterRecordErrorMsg, isPreDeleteMasterRecordErrorMsg]);
 
-    // pre add msg
-    if (isPreAddSuccessMsg) {
-      if (isPreAddErrorMsg) {
-        toast.error(isPreAddErrorMsg);
-        setTimeout(() => {
-          dispatch(premedicationClearMessages());
-        }, 100);
-        return;
-      }
-
-      toast.success(isPreAddSuccessMsg);
-      setTimeout(() => {
-        dispatch(premedicationClearMessages());
-        dispatch(getPremediRecord(payload));
-      }, 100);
-    }
-  }, [
-    isPreDeleteSuccessMsg,
-    isPreDeleteErrorMsg,
-    isPreAddSuccessMsg,
-    isPreAddErrorMsg,
-  ]);
 
   useEffect(() => {
     // chemo add msg
-    if (isChemoAddSuccessMsg) {
-      if (isChemoAddErrorMsg) {
-        toast.error(isChemoAddErrorMsg);
+    if (isChemoAddMasterRecordSuccessMsg) {
+      if (isChemoAddMasterRecordErrorMsg) {
+        toast.error(isChemoAddMasterRecordErrorMsg);
         setTimeout(() => {
-          dispatch(chemoClearMessages());
+          dispatch(clearMasterMessage());
         }, 100);
         return;
       }
-      toast.success(isChemoAddSuccessMsg);
+      toast.success(isChemoAddMasterRecordSuccessMsg);
       setTimeout(() => {
+        dispatch(clearMasterMessage());
         dispatch(getChemoRecord(payload));
-        dispatch(chemoClearMessages());
       }, 100);
     }
 
-    // chemo delete msg
-    if (isChemoDeleteSuccessMsg) {
-      if (isChemoDeleteErrorMsg) {
-        toast.error(isChemoDeleteErrorMsg, {
-          // delay: 1000,
-          // hideProgressBar: true
-        });
+
+
+
+    if (isChemoDeleteMasterRecordSuccessMsg) {
+      if (isChemoDeleteMasterRecordErrorMsg) {
+        toast.error(isChemoDeleteMasterRecordErrorMsg);
         setTimeout(() => {
-          dispatch(getChemoRecord(payload));
-          dispatch(chemoClearMessages());
+          dispatch(clearMasterMessage());
         }, 100);
         return;
       }
-      toast.success(isChemoDeleteSuccessMsg, {
-        // delay: 1000,
-        // hideProgressBar: true
-      });
+      toast.success(isChemoDeleteMasterRecordSuccessMsg);
       setTimeout(() => {
+        dispatch(clearMasterMessage());
         dispatch(getChemoRecord(payload));
-        dispatch(chemoClearMessages());
+
       }, 100);
     }
   }, [
-    isChemoAddSuccessMsg,
-    isChemoAddErrorMsg,
-    isChemoDeleteSuccessMsg,
-    isChemoDeleteErrorMsg,
+    isChemoAddMasterRecordSuccessMsg,
+    isChemoAddMasterRecordErrorMsg,
+    isChemoDeleteMasterRecordErrorMsg,
+    isChemoDeleteMasterRecordSuccessMsg
   ]);
+
 
   useEffect(() => {
-    // take home delete msg
-    if (isTakeHomeDeleteSuccessMsg) {
-      if (isTakeHomeDeleteErrorMsg) {
-        toast.error(isTakeHomeDeleteErrorMsg, {
-          // delay: 1000,
-          // hideProgressBar: true
-        });
+    // chemo add msg
+    if (isTakeHomeAddMasterRecordSuccessMsg) {
+      if (isTakeHomeAddMasterRecordErrorMsg) {
+        toast.error(isTakeHomeAddMasterRecordErrorMsg);
         setTimeout(() => {
-          dispatch(takeHomeClearMessages());
+          dispatch(clearMasterMessage());
         }, 100);
         return;
       }
-
-      toast.success(isTakeHomeDeleteSuccessMsg, {
-        // delay: 1000,
-        // hideProgressBar: true
-      });
+      toast.success(isTakeHomeAddMasterRecordSuccessMsg);
       setTimeout(() => {
-        dispatch(takeHomeClearMessages());
+        dispatch(clearMasterMessage());
         dispatch(getTakeHomeRecord(payload));
       }, 100);
     }
 
-    // take home add msg
-    if (isTakeHomeAddSuccessMsg) {
-      if (isTakeHomeAddErrorMsg) {
-        toast.error(isTakeHomeAddErrorMsg);
+
+
+
+    if (isTakeHomeDeleteMasterRecordSuccessMsg) {
+      if (isTakeHomeDeleteMasterRecordErrorMsg) {
+        toast.error(isTakeHomeDeleteMasterRecordErrorMsg);
         setTimeout(() => {
-          dispatch(takeHomeClearMessages());
+          dispatch(clearMasterMessage());
         }, 100);
         return;
       }
-
-      toast.success(isTakeHomeAddSuccessMsg);
+      toast.success(isTakeHomeDeleteMasterRecordSuccessMsg);
       setTimeout(() => {
+        dispatch(clearMasterMessage());
         dispatch(getTakeHomeRecord(payload));
-        dispatch(takeHomeClearMessages());
       }, 100);
     }
   }, [
-    ,
-    isTakeHomeAddSuccessMsg,
-    isTakeHomeAddErrorMsg,
-    isTakeHomeDeleteSuccessMsg,
-    isTakeHomeDeleteErrorMsg,
+    isTakeHomeAddMasterRecordSuccessMsg,
+    isTakeHomeAddMasterRecordErrorMsg,
+    isTakeHomeDeleteMasterRecordErrorMsg,
+    isTakeHomeDeleteMasterRecordSuccessMsg
   ]);
 
-  // ------------- toast message here end  ----------------
-
-  // data come from library
-  // const preColumns = [
-  //   {
-  //     name: "Drug Type/Name",
-  //     selector: (row) => `${row.drugType}. ${row.drugName}`,
-  //     sortable: true,
-  //     grow: 1.7,
-  //   },
-  //   {
-  //     name: "Brand",
-  //     selector: (row) => row.brandName,
-  //     sortable: true,
-  //   },
-  //   {
-  //     name: "Dose",
-  //     selector: (row) => row.doseValue,
-  //     grow: 0.3,
-  //   },
-  //   {
-  //     name: "Unit",
-  //     selector: (row) => row.unit,
-  //     grow: 0.3,
-  //   },
-  //   {
-  //     name: "Duration",
-  //     selector: (row) => {
-  //       const days = row.duration;
-  //       return `${days} ${days === 1 ? "day" : "days"}`;
-  //     },
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Frequency",
-  //     selector: (row) =>
-  //       `${row.frequency[0]} - ${row.frequency[1]} - ${row.frequency[2]}`,
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Administraion Details",
-  //     selector: (row) => row.details,
-  //     grow: 1.5,
-  //   },
-  // ];
-
-  // const chemoColumns = [
-  //   {
-  //     name: "Drug Name",
-  //     selector: (row) => `${row.drugType}. ${row.drugName}`,
-  //     grow: 1.7,
-  //   },
-  //   {
-  //     name: "Brand Name",
-  //     selector: (row) => `${row.brandName}`,
-  //   },
-  //   {
-  //     name: "Dose Range",
-  //     selector: (row) =>
-  //       `${row.doseRangeA} - ${row.doseRangeB} ${row.doseUnit}`,
-  //     // grow: .,
-  //   },
-  //   {
-  //     name: "Dose Pct",
-  //     selector: (row) => `${row.dosePct} %`,
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Route",
-  //     selector: (row) => row.route,
-  //     grow: 0.2,
-  //   },
-  //   {
-  //     name: "Duration",
-  //     selector: (row) => `${row.duration} hrs`,
-  //     grow: 0.4,
-  //   },
-  //   {
-  //     name: "Dilution Volume",
-  //     selector: (row) => `${row.dilution} ml`,
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Administraion Details",
-  //     selector: (row) => row.details,
-  //     grow: 1.5,
-  //   },
-  // ];
-
-  // const takeHomeColumns = [
-  //   {
-  //     name: "Drug Name",
-  //     selector: (row) => `${row.drugType}. ${row.drugName}`,
-  //     sortable: true,
-  //     grow: 1.7,
-  //   },
-  //   {
-  //     name: "Brand",
-  //     selector: (row) => row.brandName,
-  //     sortable: true,
-  //   },
-  //   {
-  //     name: "Dose",
-  //     selector: (row) => row.doseValue,
-  //     grow: 0.3,
-  //   },
-  //   {
-  //     name: "Unit",
-  //     selector: (row) => row.unit,
-  //     grow: 0.3,
-  //   },
-  //   {
-  //     name: "Duration (days)",
-  //     selector: (row) => `${row.duration} days`,
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Frequency",
-  //     selector: (row) =>
-  //       `${row.frequency[0]} - ${row.frequency[1]} - ${row.frequency[2]}`,
-  //     grow: 0.5,
-  //   },
-  //   {
-  //     name: "Administraion Details",
-  //     selector: (row) => row.details,
-  //     grow: 1.5,
-  //   },
-  // ];
 
   const preDataColumns = [
     {
@@ -793,15 +640,14 @@ const ViewMasterRecord = () => {
 
       console.log("Submit Data:", cancerDataId, regimenDataId, preRefId);
 
-      dispatch(
-        addSinglePremedicationRecordIntoMasterRecord(
-          cancerDataId,
-          regimenDataId,
-          preRefId
-        )
-      );
+      const payload = {
+        cancerDataId,
+        regimenDataId,
+        preRefId
+      }
+
+      dispatch(addSinglePremedicationRecordIntoMasterRecord(payload));
       handlePremedicationDataClearSelection();
-      handleGetRecords();
     }
   };
 
@@ -894,21 +740,25 @@ const ViewMasterRecord = () => {
 
   const handleChemotherapyDataSubmit = (e) => {
     e.preventDefault();
-    if (window.confirm(`Are you sure wanna Add into Chemotherapy Record?`)) {
+    if (window.confirm(`Are you sure you want to add into Chemotherapy Record?`)) {
       const cancerId = cancerDataId;
       const regimenId = regimenDataId;
-      const chemoRefId = selectedAllRowChemoData.map((item) => item._id);
-      dispatch(
-        addSingleChemotharapyRecordIntoMasterRecord(
-          cancerDataId,
-          regimenDataId,
-          chemoRefId
-        )
-      );
+
+      // Convert array of IDs to a comma-separated string
+      const chemoRefId = selectedAllRowChemoData.map((item) => item._id).join(",");
+
+      const payload = {
+        cancerDataId: cancerId,
+        regimenDataId: regimenId,
+        chemoRefId // This is now a string
+      };
+
+      dispatch(addSingleChemotharapyRecordIntoMasterRecord(payload));
       handleChemotherapyDataClearSelection();
-      handleGetRecords();
     }
   };
+
+
 
   const handleChemotherapyDataClearSelection = () => {
     setSearchChemoData('')
@@ -1000,8 +850,6 @@ const ViewMasterRecord = () => {
   const handleTakeHomeDataSubmit = (e) => {
     e.preventDefault();
 
-    console.log("handleTakeHomeDataSubmit:", selectedAllRowTakeHomeData);
-
     if (
       window.confirm(
         `Are you sure you want to add into Take Home Treatment Record?`
@@ -1009,18 +857,21 @@ const ViewMasterRecord = () => {
     ) {
       const cancerId = cancerDataId;
       const regimenId = regimenDataId;
-      const takeHomeRefId = selectedAllRowTakeHomeData.map((item) => item._id);
+      const takeHomeRefId = selectedAllRowTakeHomeData.map((item) => item._id).join(','); // Convert to comma-separated string
+
+      const payload = {
+        cancerId,
+        regimenId,
+        takeHomeRefId // Now a string
+      };
+
       dispatch(
-        addSingleTakeHomeRecordIntoMasterRecord(
-          cancerDataId,
-          regimenDataId,
-          takeHomeRefId
-        )
+        addSingleTakeHomeRecordIntoMasterRecord(payload)
       );
       handleTakeHomeDataClearSelection();
-      handleGetRecords();
     }
   };
+
 
   const handleTakeHomeDataClearSelection = () => {
     setSearchTakeHomeData('');

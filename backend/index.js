@@ -5,10 +5,6 @@ const cors = require('cors')
 const { PatientTreatmentFormRecords, BloodReportUploadModel } = require('./models/treatmentModel');
 const authRoute = require('./routers/authRoute');
 
-//routers declaration
-// const createPatientProfile = require('./routers/doctorRoute')
-
-
 // config.env files 
 const dotenv = require('dotenv');
 const path = require('path');
@@ -83,7 +79,6 @@ app.post("/fileUploads", upload.single("file"), async (req, res) => {
         console.log("cycleTestName:", cycleTestName);
         console.log("filePath:", filePath);
 
-
         var uploadFile = new BloodReportUploadModel({
             patientRef_id: patientId,
             date: date,
@@ -125,14 +120,12 @@ app.get('/getRecords', async (req, res) => {
         }
 
         const data = await BloodReportUploadModel.find({ patientRef_id: patientRefId, cycleTestName: cycleTestName });
-
         // // Construct query object
         // const query = {
         //     patientRef_id: patientRefId,
         //     'cycleTestList.cycleTestName': cycleTestName,
         //     'cycleTestList.appointmentDates.date': date
         // };
-
         // Send the file path as response
         res.json({ data });
     } catch (error) {
