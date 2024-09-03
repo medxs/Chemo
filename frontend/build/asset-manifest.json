@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.af812344.css",
-    "main.js": "/static/js/main.8eecacf3.js",
+    "main.js": "/static/js/main.1ed176fb.js",
     "static/media/hero-bg.png": "/static/media/hero-bg.6ac63fc33c27dee8c2a7.png",
     "static/media/banner.jpg": "/static/media/banner.d975f22e4be303633425.jpg",
     "static/media/doctor img.png": "/static/media/doctor img.04061f81c2e51581662a.png",
@@ -11,10 +11,10 @@
     "static/media/healthcare-call-center-icon.svg": "/static/media/healthcare-call-center-icon.f7456ecbd71cd262bdd205b60e820103.svg",
     "index.html": "/index.html",
     "main.af812344.css.map": "/static/css/main.af812344.css.map",
-    "main.8eecacf3.js.map": "/static/js/main.8eecacf3.js.map"
+    "main.1ed176fb.js.map": "/static/js/main.1ed176fb.js.map"
   },
   "entrypoints": [
     "static/css/main.af812344.css",
-    "static/js/main.8eecacf3.js"
+    "static/js/main.1ed176fb.js"
   ]
 }
