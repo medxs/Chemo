@@ -1,8 +1,9 @@
 const getEnvironmentUrl = (req, res) => {
-    if (process.env.REACT_APP_NODE_ENV === 'production') {
+    const env = process.env.REACT_APP_NODE_ENV || 'development';
+    if (env === 'production') {
         return `${req.protocol}://${req.get('host')}`;
     } else {
-        return process.env.REACT_APP_BACKEND_URL; // or any other development/staging URL
+        return process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000'; // Default fallback for development
     }
 };
 
